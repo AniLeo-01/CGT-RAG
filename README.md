@@ -62,7 +62,7 @@ GRACE operates in three stages:
 Initial graph entry points are selected via approximate nearest-neighbor search over node embeddings:
 
 ```math
-N_0 = \operatorname{TopK}_{n \in \mathcal{V}} \left( \operatorname{sim}(q,\ \phi(n)) \right)
+N_0 = \text{TopK}_{n \in \mathcal{V}} \left( \text{sim}(q,\ \phi(n)) \right)
 ```
 
 These seed nodes anchor subsequent graph traversal.
@@ -74,7 +74,7 @@ These seed nodes anchor subsequent graph traversal.
 Rather than issuing additional vector queries, GRACE expands context by traversing graph neighborhoods:
 
 ```math
-C_{t+1} = C_t \cup \operatorname{Neighbors}(C_t,\ a_t)
+C_{t+1} = C_t \cup \text{Neighbors}(C_t,\ a_t)
 ```
 
 where the traversal action is:
@@ -148,7 +148,7 @@ This bidirectional text-structure-text traversal enables semantic expansion whil
 GRACE optimizes for answer quality over the accumulated context $`C`$:
 
 ```math
-\max_{C}\ \operatorname{AnswerQuality}(C)
+\max_{C}\ \text{AnswerQuality}(C)
 ```
 
 subject to:
@@ -162,7 +162,7 @@ T \leq H \qquad \text{(max traversal hops)}
 ```
 
 ```math
-\frac{d}{dC}\operatorname{AnswerQuality}(C) \geq \epsilon \qquad \text{(diminishing returns threshold)}
+\frac{d}{dC}\text{AnswerQuality}(C) \geq \epsilon \qquad \text{(diminishing returns threshold)}
 ```
 
 This contrasts with standard ANN-based retrieval (e.g., HNSW), which minimizes:
@@ -184,7 +184,7 @@ GRACE has a natural Markov Decision Process (MDP) interpretation:
 | State $`s_t`$ | $`(q,\ C_t)`$ |
 | Action $`a_t`$ | traversal decision (node/edge selection) |
 | Transition $`T`$ | graph expansion: $`C_t \to C_{t+1}`$ |
-| Reward $`r`$ | $`\operatorname{AnswerAccuracy}(C_T) - \lambda \cdot \operatorname{Cost}(T)`$ |
+| Reward $`r`$ | $`\text{AnswerAccuracy}(C_T) - \lambda \cdot \text{Cost}(T)`$ |
 
 This formulation opens pathways to:
 - reinforcement learning for traversal policy optimization
